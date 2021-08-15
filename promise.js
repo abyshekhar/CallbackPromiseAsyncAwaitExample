@@ -1,26 +1,20 @@
-const doSomeWork = (flag) => {
+const doSomeWork = () => {
   console.log("Do some work");
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      flag
-        ? resolve("Work completed successfully")
-        : reject("Work completed with errors");
+      try {
+        //code to do some work
+        resolve("Work completed successfully");
+      } catch (err) {
+        reject("Work completed with errors");
+      }
     }, 2000);
   });
 };
 
 //success scenario
-
-doSomeWork("anything")
+doSomeWork()
   .then((res) => {
     console.log(res);
   })
   .catch((err) => console.log(err));
-
-// Uncomment this to test the error sceanrio
-//failure scenario
-// doSomeWork()
-//   .then((res) => {
-//     console.log(res);
-//   })
-//   .catch((err) => console.log(err));

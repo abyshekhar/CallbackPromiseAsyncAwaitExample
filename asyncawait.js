@@ -1,33 +1,27 @@
-const doSomethingAsync = async (flag) => {
+const doSomethingAsync = async () => {
   console.log("doSomethingAsync : inside doSomethingAsync");
-  await doSomeWork(flag)
-  .then(res=>console.log(res))
-  .catch(err=>console.log(err))
+  const result = await doSomeWork();
+  console.log(result);
   console.log("doSomethingAsync : continue with other work");
 };
-
-const doSomeWork = (flag) => {
- return new Promise((resolve,reject)=>{
-    console.log("work in progress");
-    setTimeout(() => {
-        flag? resolve('work is completed successfully'):reject('work completed with error')
-      }, 5000);
-      
- }) 
-};
-const doSomething = (flag) => {
+const doSomething = () => {
   console.log("doSomething : inside doSomething");
-  doSomeWork(flag)
-  .then(res=>console.log(res))
-  .catch(err=>console.log(err))
+  const result = doSomeWork();
+  console.log(result);
   console.log("doSomething : continue with other work");
 };
+const doSomeWork = () => {
+  return new Promise((resolve, reject) => {
+    console.log("work in progress");
+    setTimeout(() => {
+      try {
+        resolve("work completed successfully");
+      } catch (err) {
+        reject("work completed with error");
+      }
+    }, 5000);
+  });
+};
 
-//success scenario
-doSomething(true);
-doSomethingAsync(true);
-
-// Uncomment this to test the error scenario
-// error scenario
-// doSomething();
-// doSomethingAsync();
+doSomething();
+doSomethingAsync();
